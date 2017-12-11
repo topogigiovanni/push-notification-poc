@@ -1,0 +1,12 @@
+package-lock.json
+/package-lock.json
+node_modules
+*.lock
+vendor
+node_modules
+bower_components
+/.tmp
+.tmp
+.env
+.phpintel
+.idea
