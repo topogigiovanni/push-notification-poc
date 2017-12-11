@@ -14,6 +14,7 @@ webPush.setGCMAPIKey(applicationServerKey);
 // Private Key:
 // nKKqxo5ePkofbAd_7rrmI4r2zcx0Pv7KNb2Bh3EbzBE
 
+var cacheSubscription = {};
 
 module.exports = function(app, route) {
 	app.use(bodyParser.json()); // to support JSON-encoded bodies
@@ -22,6 +23,9 @@ module.exports = function(app, route) {
 	}));
 
     app.post(route + 'register', function(req, res) {
+    	console.log('req.body', req.body);
+
+    	cacheSubscription = req.body;
         res.sendStatus(201);
     });
 
@@ -40,6 +44,28 @@ module.exports = function(app, route) {
     //             });
     //     }, req.query.delay * 1000);
     // });
+
+	app.post(route + 'sendCachedNotification', function(req, res) {
+    	console.log('req.body', req.body);
+
+        setTimeout(function() {
+            webPush.sendNotification({
+                    endpoint: cacheSubscription.endpoint,
+                    TTL: 23000,
+                    keys: {
+                        p256dh: cacheSubscription.key,
+                        auth: cacheSubscription.authSecret
+                    }
+                }, 'fixo!!! payload')
+                .then(function() {
+                    res.sendStatus(201);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                    res.sendStatus(500);
+                });
+        }, 1000);
+    });
 
     app.post(route + 'sendNotification', function(req, res) {
     	console.log('req.body', req.body);
