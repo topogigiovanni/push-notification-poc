@@ -1,6 +1,6 @@
 {
   "name": "oush-notification-poc",
-  "version": "0.1",
+  "version": "1.0.0",
   "description": "A sample Push Notification Example",
   "engines": {
     "node": "6.11.1"
