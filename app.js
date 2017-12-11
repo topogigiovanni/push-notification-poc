@@ -56,7 +56,7 @@ module.exports = function(app, route) {
                         p256dh: cacheSubscription.key,
                         auth: cacheSubscription.authSecret
                     }
-                }, 'fixo!!! payload')
+                }, req.body.payload || 'fixo!!! payload')
                 .then(function() {
                     res.sendStatus(201);
                 })

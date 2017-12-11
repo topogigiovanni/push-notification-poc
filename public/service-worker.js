@@ -4,7 +4,7 @@ self.addEventListener('push', function(event) {
 
     event.waitUntil(
 
-        self.registration.showNotification('ServiceWorker Cookbook', {
+        self.registration.showNotification('ServiceWorker Push POC', {
             body: payload,
         })
     );
